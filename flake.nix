@@ -13,9 +13,19 @@
       url = "github:danth/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";  # <- esto es lo que faltaba
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+    };
   };
 
-  outputs = { nixpkgs, unstable, home-manager, stylix, ... }:
+  outputs = { 
+    nixpkgs,
+    unstable,
+    home-manager,
+    stylix,
+    niri,
+    ...
+  }:
   let
     system = "x86_64-linux";
 
@@ -41,6 +51,8 @@
         home-manager.nixosModules.home-manager
 
         stylix.nixosModules.stylix
+
+        niri.nixosModules.niri
 
         {
           home-manager.useGlobalPkgs = true;
