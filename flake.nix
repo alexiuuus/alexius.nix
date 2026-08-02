@@ -4,25 +4,19 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";  
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix = {
-      url = "github:danth/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";  # <- esto es lo que faltaba
-    };
     niri = {
       url = "github:sodiboo/niri-flake";
+      niri.inputs.nixpkgs.follows = "nixpkgs";  
     };
   };
-
   outputs = { 
     nixpkgs,
     unstable,
     home-manager,
-    stylix,
     niri,
     ...
   }:
@@ -47,17 +41,11 @@
 
       modules = [
         ./configuration.nix
-
         home-manager.nixosModules.home-manager
-
-        stylix.nixosModules.stylix
-
         niri.nixosModules.niri
-
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-
           home-manager.users.alexis = { 
             imports = [
               ./home
