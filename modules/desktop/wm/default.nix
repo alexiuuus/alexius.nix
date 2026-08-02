@@ -1,8 +1,9 @@
 {
   imports = [
-    ./gnome
+    # ./gnome
+    # ./cosmic
+    ./niri
   ];
-  services.xserver = {
-    displayManager.gdm.enable = true; # inicio de sesion
-  };
+
+  services.displayManager.gdm.enable = true;
 }
